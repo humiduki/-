@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>カウントダウン</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans JP', sans-serif;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #ffffff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    img#logo {
+      max-width: 60%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+    #countdown {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5em;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5em;
+      }
+      #countdown {
+        font-size: 1.8em;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ロゴ画像 -->
+  <img id="logo" src="OIP.jpg" alt="Monster Energy ロゴ">
+
+  <h1>イベントまでのカウントダウン</h1>
+  <div id="countdown">読み込み中...</div>
+
+  <!-- BGM再生 -->
+  <audio autoplay loop>
+    <source src="Fateful Dreamers - Old Doll ~ Mad Father.mp3" type="audio/mpeg">
+    お使いのブラウザはaudio要素をサポートしていません。
+  </audio>
+
+  <script>
+    const targetDate = new Date("2025-12-31T23:59:59").getTime();
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+      if (distance <= 0) {
+        document.getElementById("countdown").innerHTML = "カウントダウン終了！";
+        clearInterval(interval);
+        return;
+      }
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      document.getElementById("countdown").innerHTML =
+        `${days}日 ${hours}時間 ${minutes}分 ${seconds}秒`;
+    }
+    const interval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
